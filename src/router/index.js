@@ -1,22 +1,83 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+import { Storage } from '@/utils'
+
+// 解决路由to=from报错
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location, onResolve, onReject) {
+  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => err)
+}
+
+const originalReplace = VueRouter.prototype.replace
+VueRouter.prototype.replace = function repalce (location, onResolve, onReject) {
+  if (onResolve || onReject) return originalReplace.call(this, location, onResolve, onReject)
+  return originalReplace.call(this, location).catch(err => err)
+}
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'layout',
+    redirect: '/home',
+    component: () => import('@/layout'),
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        meta: {
+          avoidAuth: true
+        },
+        component: () => import('@/views/home/home.vue')
+      },
+      {
+        path: '/about',
+        name: 'about',
+        meta: {
+          avoidAuth: false
+        },
+        component: () => import('@/views/home/about/about.vue')
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    name: 'login',
+    meta: {
+      avoidAuth: true
+    },
+    component: () => import('@/views/login/login.vue')
+  },
+  {
+    path: '/store',
+    name: 'store',
+    meta: {
+      avoidAuth: true
+    },
+    component: () => import('@/views/store/store.vue')
+  },
+  {
+    path: '/goods-comment',
+    name: 'goods-comment',
+    meta: {
+      avoidAuth: true
+    },
+    component: () => import('@/views/store/goods-comment/goods-comment.vue')
+  },
+  {
+    path: '/goods-detail',
+    name: 'goods-detail',
+    meta: {
+      avoidAuth: true
+    },
+    component: () => import('@/views/store/goods-detail/goods-detail.vue')
+  },
+  {
+    path: '*',
+    redirect: '/'
   }
 ]
 
@@ -25,5 +86,18 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const USER_INFO = Storage.getItem(Storage.USER_INFO)
+  const { path, meta } = to
+  const whitelist = ['/login']
+  if (whitelist.includes(path) || USER_INFO || meta.avoidAuth) {
+    next()
+  } else {
+    next('/login')
+  }
+})
+
+router.afterEach((to, from) => {})
 
 export default router

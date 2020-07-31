@@ -1,0 +1,346 @@
+@import './reset.scss';
+@import './theme.scss';
+@import './mixins.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 30px;
+}
+
+img {
+  object-fit: cover;
+}
+
+// 定位
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed { 
+  position: fixed;
+}
+
+// 边距
+.m5 {
+  margin: 5px;
+}
+
+.ml5 {
+  margin-left: 5px;
+}
+
+.mr5 {
+  margin-right: 5px;
+}
+
+.mt5 {
+  margin-top: 5px;
+}
+
+.mb5 {
+  margin-bottom: 5px;
+}
+
+.m10 {
+  margin: 10px;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.m20 {
+  margin: 20px;
+}
+
+.ml20 {
+  margin-left: 20px;
+}
+
+.mr20 {
+  margin-right: 20px;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.m30 {
+  margin: 30px;
+}
+
+.ml30 {
+  margin-left: 30px;
+}
+
+.mr30 {
+  margin-right: 30px;
+}
+
+.mt30 {
+  margin-top: 30px;
+}
+
+.mb30 {
+  margin-bottom: 30px;
+}
+
+.p5 {
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.pl5 {
+  padding-left: 5px;
+  box-sizing: border-box;
+}
+
+.pr5 {
+  padding-right: 5px;
+  box-sizing: border-box;
+}
+
+.pt5 {
+  padding-top: 5px;
+  box-sizing: border-box;
+}
+
+.pb5 {
+  padding-bottom: 5px;
+  box-sizing: border-box;
+}
+
+.p10 {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.pl10 {
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.pr10 {
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+
+.pt10 {
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+
+.pb10 {
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.p20 {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.pl20 {
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+.pr20 {
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.pt20 {
+  padding-top: 20px;
+  box-sizing: border-box;
+}
+
+.pb20 {
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.p30 {
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.pl30 {
+  padding-left: 30px;
+  box-sizing: border-box;
+}
+
+.pr30 {
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+
+.pt30 {
+  padding-top: 30px;
+  box-sizing: border-box;
+}
+
+.pb30 {
+  padding-bottom: 30px;
+  box-sizing: border-box;
+}
+
+// flex
+.fr {
+  display: flex;
+  flex-direction: row;
+}
+
+.fc {
+  display: flex;
+  flex-direction: column;
+}
+
+.fw {
+  flex-wrap: wrap;
+}
+
+.js {
+  justify-content: flex-start;
+}
+
+.jc {
+  justify-content: center;
+}
+
+.je {
+  justify-content: flex-end;
+}
+
+.jb {
+  justify-content: space-between;
+}
+
+.ja {
+  justify-content: space-around;
+}
+
+.as {
+  align-items: flex-start;
+}
+
+.ac {
+  align-items: center;
+}
+
+.ae {
+  align-items: flex-end;
+}
+
+.ass {
+  align-self: flex-start;
+}
+
+.asc {
+  align-self: center;
+}
+
+.ase {
+  align-self: flex-end;
+}
+
+.f1 {
+  flex: 1;
+}
+
+// font
+.font18 {
+  font-size: 18px;
+}
+
+.font20 {
+  font-size: 20px;
+}
+
+.font22 {
+  font-size: 22px;
+}
+
+.font24 {
+  font-size: 24px;
+}
+
+.font26 {
+  font-size: 26px;
+}
+
+.font28 {
+  font-size: 28px;
+}
+
+.font30 {
+  font-size: 30px;
+}
+
+.font32 {
+  font-size: 32px;
+}
+
+.font34 {
+  font-size: 34px;
+}
+
+.font36 {
+  font-size: 36px;
+}
+
+.fontbold{
+  font-weight: bold;
+}
+
+// color
+.color-primary {
+  color: $uni-color-primary;
+}
+
+.color-white {
+  color: #FFFFFF;
+}
+
+.color-black {
+  color: #000000;
+}
+
+// bg-color
+.bg-primary {
+  background-color: $uni-color-primary;
+}
+
+.bg-grey {
+  background-color: $uni-bg-color-grey;
+}
+
+.bg-white {
+  background-color: $uni-bg-color;
+}
