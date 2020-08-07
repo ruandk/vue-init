@@ -12,8 +12,11 @@ import store from './store'
 import MetaInfo from 'vue-meta-info'
 
 // element-ui
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+
+import Vant from 'vant'
+import 'vant/lib/index.css'
 
 // 注册全局组件
 import '@/components'
@@ -31,7 +34,8 @@ import '@/styles/index.scss'
 
 // Vue.use(Navigation, { router })
 Vue.use(MetaInfo)
-Vue.use(ElementUI)
+// Vue.use(ElementUI)
+Vue.use(Vant)
 
 Vue.config.productionTip = false
 Vue.prototype.$cdn = process.env.VUE_APP_CDN

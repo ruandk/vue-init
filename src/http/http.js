@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Toast } from 'vant'
 import { Storage } from '@/utils'
 import router from '@/router'
 
@@ -21,6 +21,10 @@ class Http {
   startLoading () {
     if (this.reqNum === 0) {
       console.log('开始loading')
+      Toast.loading({
+        duration: 0,
+        forbidClick: true
+      })
     }
     this.reqNum++
   }
@@ -30,6 +34,7 @@ class Http {
     this.reqNum--
     if (this.reqNum === 0) {
       console.log('结束loading')
+      Toast.clear()
     }
   }
 
@@ -39,17 +44,15 @@ class Http {
   }
 
   request (url, method = 'get', data = {}) {
-    const userInfo = Storage.getItem(Storage.USER_INFO)
-    const token = userInfo && userInfo.token
+    const AUTH_TOKEN = Storage.getItem(Storage.AUTH_TOKEN)
 
     return axios.request({
       url,
       method,
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${AUTH_TOKEN}`
       },
-      ...method.toLowerCase() === 'get' ? { params: data } : { data }
+      ...method.toUpperCase() === 'GET' ? { params: data } : { data }
     })
   }
 
@@ -59,10 +62,11 @@ class Http {
       config => {
         this.startLoading()
         config.baseURL = this.baseURL
-        // if (config.url && config.url.includes('/uploadFile')) {
-        //   config.headers['Content-Type'] = 'multipart/form-data'
-        //   return config
-        // }
+        if (config.url.includes('/upload')) {
+          config.headers['Content-Type'] = 'multipart/form-data'
+          return config
+        }
+        config.headers['Content-Type'] = 'application/json'
         return config
       },
       error => Promise.reject(error)
@@ -73,19 +77,20 @@ class Http {
   initInterceptorsResponse = () => {
     axios.interceptors.response.use(
       async response => {
-        this.endLoading()
-        const { data: { data, code, message } } = response
+        const { data: { data, code, msg } } = response
 
-        if (code === 403) {
+        if (code === '403') {
+          Storage.removeItem(Storage.AUTH_TOKEN)
           router.replace('/login')
-          return Promise.reject(message)
+          return Promise.reject(msg)
         }
 
-        if (code !== 200) {
-          Message({ message, type: 'error' })
-          return Promise.reject(message)
+        if (code !== '200') {
+          Toast(msg)
+          return Promise.reject(msg)
         }
 
+        this.endLoading()
         return data
       },
       error => {

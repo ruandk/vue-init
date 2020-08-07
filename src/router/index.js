@@ -88,13 +88,18 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const USER_INFO = Storage.getItem(Storage.USER_INFO)
   const { path, meta } = to
+  const AUTH_TOKEN = Storage.getItem(Storage.AUTH_TOKEN)
   const whitelist = ['/login']
-  if (whitelist.includes(path) || USER_INFO || meta.avoidAuth) {
+
+  if (whitelist.includes(path) || AUTH_TOKEN || meta.avoidAuth) {
     next()
   } else {
     next('/login')
+  }
+
+  if (meta.title) {
+    document.title = meta.title
   }
 })
 

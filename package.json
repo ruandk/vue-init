@@ -5,9 +5,9 @@
   "author": "KevinRuan <578281588@qq.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "alpha-build": "vue-cli-service build --mode alpha",
-    "beta-build": "vue-cli-service build --mode beta",
-    "build": "vue-cli-service build",
+    "build:test": "vue-cli-service build --mode development",
+    "build:stage": "vue-cli-service build --mode staging",
+    "build:prod": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "element-ui": "^2.13.2",
     "js-base64": "^3.2.4",
     "md5": "^2.2.1",
+    "vant": "^2.9.4",
     "vue": "^2.6.11",
     "vue-meta-info": "^0.1.7",
     "vue-navigation": "^1.1.4",
@@ -39,7 +40,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.12.0",
-    "postcss-px2rem": "^0.3.0",
+    "postcss-px2rem-exclude": "0.0.6",
     "prerender-spa-plugin": "^3.4.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
